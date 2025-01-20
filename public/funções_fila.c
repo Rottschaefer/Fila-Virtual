@@ -17,9 +17,9 @@ typedef struct aluno{
     
 Fila_alunos* cria_fila_alunos(){
     Fila_alunos* l = malloc(sizeof(Fila_alunos));
-    if(l == NULL){
-        exit(1);
-    }
+    // if(l == NULL){
+    //     exit(1);
+    // }
 
 
     l->primeiro = NULL;
@@ -30,9 +30,9 @@ Fila_alunos* cria_fila_alunos(){
 
 void inserir_aluno(Fila_alunos* l){
     Info_aluno* aluno = malloc(sizeof(Info_aluno));
-    if(aluno == NULL){
-        exit(1);
-    }
+    // if(aluno == NULL){
+    //     exit(1);
+    // }
 
     aluno->prox = NULL;
 

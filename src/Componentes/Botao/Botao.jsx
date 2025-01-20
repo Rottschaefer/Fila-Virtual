@@ -4,12 +4,17 @@ import { goTo } from '../../Routes/coordinator';
 import { useNavigate } from 'react-router-dom';
 
 
-export const Botao = ({ children, path}) => {
+export const Botao = ({ children, path, onClickFunction}) => {
 
     const navigate = useNavigate();
+
+    const handleClick = () => {
+        goTo(navigate, path);
+        if (onClickFunction) onClickFunction();
+    };
     
     return (
-        <StyledBotao onClick={()=>goTo(navigate, path)}>
+        <StyledBotao onClick={handleClick}>
             {children}
         </StyledBotao>
     );
