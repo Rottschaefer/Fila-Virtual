@@ -87,6 +87,11 @@ int numero_na_fila(Fila_alunos* l){
     return posicao;
 }
 
+void retorna_primeiro(Fila_alunos* l){
+    return l->primeiro->nome;
+}
+
+
 // void imprime_fila(Fila_alunos* l){
 //     Info_aluno* temp = l->primeiro;
 //     while(temp != NULL){
