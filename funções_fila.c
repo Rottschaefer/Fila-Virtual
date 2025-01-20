@@ -59,3 +59,13 @@ void sair_fila(Fila_alunos* l){
     }
     free(temp);
 }
+
+int numero_na_fila(Fila_alunos* l){
+    int posicao = 0;
+    Info_aluno* temp = l->primeiro;
+    while(temp != NULL){
+        posicao++;
+        temp = temp->prox;
+    }
+    return posicao;
+}
