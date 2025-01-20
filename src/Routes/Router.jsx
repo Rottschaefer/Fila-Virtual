@@ -6,7 +6,7 @@ export const Router = () => {
     return (
             <Routes>
                 <Route index element={<TelaInicial />} />
-                <Route path="/fila" element={<FilaPage/>} />
+                <Route path="/fila/:pointer" element={<FilaPage />} />
                 <Route path="/admin" element={<h1>Admin Page</h1>} />
             </Routes>
     );

@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <string.h>
 
 typedef struct dados{
     char nome[50];
@@ -28,21 +29,37 @@ Fila_alunos* cria_fila_alunos(){
     return l;
 }
 
-void inserir_aluno(Fila_alunos* l){
+
+Info_aluno* cria_aluno(char nome[], int matricula, char horario[], int campus){
     Info_aluno* aluno = malloc(sizeof(Info_aluno));
     // if(aluno == NULL){
     //     exit(1);
     // }
 
     aluno->prox = NULL;
+    aluno->matricula = matricula;
+    aluno->campus = campus;
+    strcpy(aluno->nome, nome);
+    strcpy(aluno->horario, horario);
+
+    return aluno;
+}
+
+void inserir_aluno(Fila_alunos* l, Info_aluno* aluno){
+    Info_aluno* novo_aluno = malloc(sizeof(Info_aluno));
+    // if(aluno == NULL){
+    //     exit(1);
+    // }
+
+    novo_aluno->prox = NULL;
 
     if(l->primeiro == NULL){
-        l->primeiro = aluno;
-        l->ultimo = aluno;
+        l->primeiro = novo_aluno;
+        l->ultimo = novo_aluno;
     }
     else{
-        l->ultimo->prox = aluno;
-        l->ultimo = aluno;
+        l->ultimo->prox = novo_aluno;
+        l->ultimo = novo_aluno;
     }
 }
 
@@ -69,3 +86,14 @@ int numero_na_fila(Fila_alunos* l){
     }
     return posicao;
 }
+
+// void imprime_fila(Fila_alunos* l){
+//     Info_aluno* temp = l->primeiro;
+//     while(temp != NULL){
+//         printf("Nome: %s\n", temp->nome);
+//         printf("Matricula: %d\n", temp->matricula);
+//         printf("Horario: %s\n", temp->horario);
+//         printf("Campus: %d\n", temp->campus);
+//         temp = temp->prox;
+//     }
+// }

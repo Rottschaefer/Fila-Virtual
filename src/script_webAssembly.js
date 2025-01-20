@@ -3,8 +3,14 @@ export const FilaFuncoes = async () => {
 
   const importObject = {
     env: {
-        memory: new WebAssembly.Memory({ initial: 256 }),
-        consoleLog: (value) => console.log(value)
+        memory: new WebAssembly.Memory({ initial: 1 }),
+        consoleLog: (value) => console.log(value),
+        malloc: (size) => {
+          // Implementar malloc adequado para WASM
+          const ptr = 0;
+          currentMemoryPosition += size;
+          return ptr;
+      }
     }
 };
 
@@ -21,7 +27,9 @@ export const FilaFuncoes = async () => {
     // const fila = wasmModule.instance.exports._cria_fila_alunos();
     // console.log(wasmModule.instance.exports.cria_fila_alunos());
 
-    return wasmModule.instance.exports;
+
+
+    return wasmModule.instance;
     
 
     // //Acessa a função `sum` exportada
