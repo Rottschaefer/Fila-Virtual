@@ -2,87 +2,72 @@ import React, { useEffect, useState } from 'react';
 import { StyledTelaInicial } from './StyledTelaInicial';
 import { Card } from '../../Componentes/Card/Card';
 import { Botao } from '../../Componentes/Botao/Botao';
-import { FilaFuncoes } from '../../script_webAssembly';
+import {Module} from '../../../public/funções_fila';
+import { createFilaService } from '../../fila_service';
 
 
-const TelaInicial = () => {
+export const TelaInicial = () => {
 
-    const [wasmFunctions, setWasmFunctions] = useState(null);
-    const [wasmModule, setWasmModule] = useState(null);
+    const [filaService, setFilaService] = useState(null);
     const [fila, setFila] = useState(null);
-    const [filaAlunos, setFilaAlunos] = useState([]);
+    const [page, setPage] = useState(false);
 
     useEffect(() => {
-        const loadWasm = async () => {
-            const functions = await FilaFuncoes();
-            setWasmFunctions(functions.exports);
-            setWasmModule(functions);
-            
-        };
-        loadWasm();
-    }, []);
+        Module().then((instance) => {
+            const service = createFilaService(instance);
+            setFilaService(service);
+            setFila(service.criarFila());
+        });
+    }, []); //Carrega o arquivo wasm assim que a pagina carrega e incializa a fila
 
-    useEffect( () => {
-        if (wasmFunctions) {
-             criar_fila();
-            const aluno1 = wasmFunctions.cria_aluno("João", 167821765, "horario", 0);
-        //     console.log("criou aluno1");
-        //     console.log(aluno1);
-        //     wasmFunctions.inserir_aluno(fila, aluno1);
-        //     const aluno2 = wasmFunctions.cria_aluno("caio", 345345, "horarfwfio", 2);
-        //     wasmFunctions.inserir_aluno(fila, aluno2);
-        //     console.log("criou aluno2");
-        //     console.log(aluno2);
-         }
-    }, [wasmFunctions]);
+ 
 
-    const criar_fila = async () => {
-        const nova_fila = await wasmFunctions.cria_fila_alunos();
-        setFila(nova_fila);
+    const handleOnClick = () =>{
+        console.log("Fila: ", fila);
+        
+        let aluno = filaService.criarAluno(123, 20)
+        console.log("Aluno1: ", aluno)
+        filaService.inserirAluno(fila, aluno)
+
+        aluno = filaService.criarAluno(231, 20)
+        console.log("Aluno2: ", aluno)
+        filaService.inserirAluno(fila, aluno)
+
+        
+
+        // instance.ccall('inserir_aluno', 'void', ['number', 'number'], [fila, aluno])
+
+        // const primeiro = instance.ccall('retorna_primeiro', 'number', ['number'], [fila])
+
+        // console.log("Primeiro: ", primeiro)
+
+        // const matricula = instance.ccall('get_matricula', 'number', ['number'], [primeiro])
+
+        // console.log("Matricula: ", matricula)
+
+        
+
+        // filaService.sairDaFila(fila)
+
+        const posicao = filaService.numeroFila(fila)
+        console.log("Posicao: ", posicao)
+
+        setPage(!page)
     }
-
-    const check_memoria = async() => {
-        const memoryBuffer = wasmFunctions.memory.buffer;
-        
-        // Criando um DataView para acessar o buffer
-        const dataView = new DataView(memoryBuffer, fila, 16);
-        
-        // // Escrevendo valores
-        //dataView.setInt32(0, 42, true); // Escreve 42 em little-endian
-        // dataView.setInt32(4, 84, true); // Escreve 84 em little-endian
-        
-        // Lendo valores
-        const value1 = dataView.getInt32(0, true); // Lê 42
-        // const value2 = dataView.getInt32(4, true); // Lê 84
-        console.log("checando memoria");
-        
-        console.log(value1);
-       
-        
-    }
-
-    const handleOnClick = async() => {
-        if (wasmFunctions) {
-            
-
-
-            
-
-           wasmFunctions.sair_da_fila(fila);
-           
-
-
-        }
-    };
-
 
     return (
-        <StyledTelaInicial>
-            <Card title={"Alunos na Fila"} content={102}/>
-            {/* {filaAlunos.map((aluno, index) => {<h1></h1>}} */}
-            <Botao path={`/fila/${fila}`} onClickFunction={handleOnClick}>Entrar na fila</Botao>
-        </StyledTelaInicial>
+        <>
+            {page ? (
+                <Botao path={`/fila/${fila}`} onClickFunction={handleOnClick}>Entrar na fila</Botao>
+            ) : (
+                <StyledTelaInicial>
+                    <Card title={"Alunos na Fila"} content={102}/>
+                    {/* {filaAlunos.map((aluno, index) => {<h1></h1>}} */}
+                    <Botao path={`/fila/${fila}`} onClickFunction={handleOnClick}>Entrar na fila</Botao>
+                </StyledTelaInicial>
+            )}
+        </>
     );
 };
 
-export default TelaInicial;
+// export default TelaInicial;

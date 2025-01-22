@@ -1,5 +1,5 @@
 import {Routes, Route } from "react-router-dom";
-import TelaInicial from "../Telas/TelaInicial/TelaInicial";
+import {TelaInicial} from "../Telas/TelaInicial/TelaInicial";
 import FilaPage from "../Telas/FilaPage/FilaPage";
 
 export const Router = () => {

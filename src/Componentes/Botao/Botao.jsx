@@ -9,7 +9,7 @@ export const Botao = ({ children, path, onClickFunction}) => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        goTo(navigate, path);
+        // goTo(navigate, path);
         if (onClickFunction) onClickFunction();
     };
     
