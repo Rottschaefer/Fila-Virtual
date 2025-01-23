@@ -6,7 +6,10 @@ export const StyledFilaPage = styled.div`
     justify-content: center;
     gap: 30px;
     align-items: center;
-    height: 90vh;
+    min-height: 90vh;
+    height: auto;
     width: 100vw;
     background-color: #1a38c1;
-`;
+
+    padding-top: 20px;
+    padding-bottom: 20px;`;

@@ -1,11 +1,14 @@
+
+//Esse arquivo pega as funcoes exportadass do webAssembly e as coloca em funcoes que podem ser chamadas pelo JS de um jeito mais pratico
+
 export const createFilaService = (instance) => {
     return {
       criarFila: () => {
         return instance.ccall('cria_fila_alunos', 'number', [], []);
       },
       
-      criarAluno: (matricula, idade) => {
-        return instance.ccall('cria_aluno', 'number', ['number', 'number'], [matricula, idade]);
+      criarAluno: (matricula, campus) => {
+        return instance.ccall('cria_aluno', 'number', ['number', 'number'], [matricula, campus]);
       },
       
       inserirAluno: (fila, aluno) => {

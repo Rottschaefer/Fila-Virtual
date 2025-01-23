@@ -101,8 +101,8 @@ int numero_na_fila(Fila_alunos* l){
     return posicao;
 }
 
-Info_aluno* retorna_primeiro(Fila_alunos* l){
-    return l->primeiro;
+Info_aluno* retorna_ultimo(Fila_alunos* l){
+    return l->ultimo;
 }
 
 
